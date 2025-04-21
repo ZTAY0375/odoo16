@@ -1,0 +1,36 @@
+<odoo>
+    <!-- Creating the 'Playground User' group -->
+    <record id="group_playground_user" model="res.groups">
+        <field name="name">Playground User</field>
+        <field name="category_id" ref="base.module_category_sales"/>
+    </record>
+
+    <!-- Creating the 'Playground Manager' group -->
+    <record id="group_playground_manager" model="res.groups">
+        <field name="name">Playground Manager</field>
+        <field name="category_id" ref="base.module_category_sales"/>
+    </record>
+
+    <!-- Access Control List for Playground User -->
+    <record id="playground_user_acl_partner" model="ir.model.access">
+        <field name="name">Playground User Access to Partners</field>
+        <!-- Use the model's external ID -->
+        <field name="model_id" ref="base.model_res_partner"/> 
+        <field name="group_id" ref="group_playground_user"/>
+        <field name="perm_read" eval="1"/> <!-- Read access -->
+        <field name="perm_write" eval="0"/> <!-- No write access -->
+        <field name="perm_create" eval="0"/> <!-- No create access -->
+        <field name="perm_unlink" eval="0"/> <!-- No delete access -->
+    </record>
+
+    <!-- Access Control List for Playground Manager -->
+    <record id="playground_manager_acl_partner" model="ir.model.access">
+        <field name="name">Playground Manager Access to Partners</field>
+        <field name="model_id" ref="base.model_res_partner"/> 
+        <field name="group_id" ref="group_playground_manager"/>
+        <field name="perm_read" eval="1"/> <!-- Read access -->
+        <field name="perm_write" eval="1"/> <!-- Write access -->
+        <field name="perm_create" eval="1"/> <!-- Create access -->
+        <field name="perm_unlink" eval="1"/> <!-- Delete access -->
+    </record>
+</odoo>

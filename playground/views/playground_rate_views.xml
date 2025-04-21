@@ -1,0 +1,124 @@
+<odoo>
+
+    <!-- FORM VIEW: Detailed view for individual playground rates -->
+    <record id="view_playground_rate_form" model="ir.ui.view">
+        <field name="name">playground.rate.form</field> <!-- Naming convention: model_name.form -->
+        <field name="model">playground.rate</field>
+        <field name="arch" type="xml">
+            <form string="Playground Rate" >
+                <sheet>
+                    <!-- Grouping fields for better UI layout -->
+                    <group>
+                        <group>
+                            <!-- Basic Identification Fields -->
+                            <field name="name"/>
+                            <field name="country_code"/>
+                            <field name="country_name"/>
+                            <field name="eu"/>
+                            <field name="success"/>
+                        </group>
+                        <group>
+                            <!-- Standard Rate Information -->
+                            <field name="standard_rate"/>
+                            <field name="standard_class"/>
+                            <field name="standard_description"/>
+                            <field name="standard_types"/>
+                        </group>
+                    </group>
+
+                    <!-- Using notebook for related records (One2many or Many2many) -->
+                    <notebook>
+                        <page string="Other Rates">
+                            <field name="other_rate_ids">
+                                <tree editable="bottom"> <!-- Enables inline editing -->
+                                    <field name="rate"/>
+                                    <field name="tax_class"/>
+                                    <field name="description"/>
+                                    <field name="types"/>
+                                    <field name="types_array"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <!-- Adding chatter for messaging and communication -->
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- TREE VIEW: List view for quick overview and bulk operations -->
+    <record id="view_playground_rate_tree" model="ir.ui.view">
+        <field name="name">playground.rate.tree</field>
+        <field name="model">playground.rate</field>
+        <field name="arch" type="xml">
+            <tree string="Playground Rates" >
+            <!-- <tree string="Playground Rates" js_class="expand_group_by_list"> -->
+                <!-- Important fields shown in tree for quick reference -->
+                <field name="name"/>
+                <field name="country_code"/>
+                <field name="country_name"/>
+                <field name="eu"/>
+                <field name="success"/>
+                <field name="standard_rate"/>
+                <field name="standard_class"/>
+                <field name="standard_description"/>
+                <field name="standard_types"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- KANBAN VIEW: Visual representation, often used for grouping and progress -->
+    <record id="view_playground_rate_kanban" model="ir.ui.view">
+        <field name="name">playground.rate.kanban</field>
+        <field name="model">playground.rate</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <!-- Fields used for rendering kanban view -->
+                <field name="country_code"/>
+                <field name="country_name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <strong>
+                                <field name="country_name"/>
+                            </strong>
+                            <br/>
+                            <span>Code: <field name="country_code"/></span>
+                            <br/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- SEARCH VIEW: Enables filtering and searching in list/kanban views -->
+    <record id="view_playground_rate_search" model="ir.ui.view">
+        <field name="name">playground.rate.search</field>
+        <field name="model">playground.rate</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- Adding most used fields for quick search -->
+                <field name="name"/>
+                <field name="country_code"/>
+                <field name="country_name"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- ACTION: Defines the main window action with views -->
+    <record id="action_playground_rate" model="ir.actions.act_window">
+        <field name="name">Playground Rates</field>
+        <field name="res_model">playground.rate</field>
+        <field name="view_mode">tree,form,kanban</field> <!-- Order of views as fallback priority -->
+    </record>
+
+
+    <!-- MENU STRUCTURE: Navigation menu items -->
+    <menuitem id="menu_playground_root" name="Playground" sequence="10"/>
+    <menuitem id="menu_playground_rate" name="Rates" parent="menu_playground_root" action="action_playground_rate"/>
+</odoo>

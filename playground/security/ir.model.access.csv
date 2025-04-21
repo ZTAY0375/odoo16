@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_playground_rate_user,access.playground.rate.user,model_playground_rate,base.group_user,1,1,1,1
+access_playground_other_rate_user,access.playground.other.rate.user,model_playground_other_rate,base.group_user,1,1,1,1
+
